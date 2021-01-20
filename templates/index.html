@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Behavior Collector</title>
+    <link rel ="stylesheet" href = "./../static/index.css"></link>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython.min.js"> </script> <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython_stdlib.js"> </script>
+</head>
+<body>
+
+    <div class = "splash" id  = "splash">
+        <h1>Press Start to Begin</h1>    
+        <button id = "start" onclick="myFunction()">Start</button>   
+    </div>
+
+    <div class = "startBot overlay" id = "startBot">
+        <p id = "joke">When you press the button below, the robot is going to do something for a few seconds.<br>
+            We are going to ask you to describe what you saw and ask what emotion you thought the robot was showing.
+        </p>
+        <button class = "startBotButton" id = "startBotButton" onclick ="brython()">Start Robot</button>
+    </div>  
+
+    <!-- <figure>
+        <div></div><div></div>
+        <div></div><div></div>
+        <div></div><div></div>
+        <div></div><div></div>
+    </figure> -->
+    <script>
+        function myFunction(){
+        setTimeout(()=>{
+        splash.classList.add('display-none');
+        }, 2000); 
+    }
+    </script>
+    <script>
+        $('#startBotButton').on('click', function(e){
+            $.ajax({
+                type:'POST',
+                url:"{{url_for('startRandomBehavior')}}",
+                dataType: "text",
+                success: function(response){
+                    console.log(response);
+                    alert(response);
+                }
+            });
+        });
+        </script>
+</body>
+</html>
