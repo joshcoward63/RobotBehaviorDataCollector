@@ -150,7 +150,7 @@ body{
   form .likert li label {width:100%;}
   
 #submitButton{
-    z-index: 10000;
+    z-index: 0;
     background-color: #d64309;
     border-color: #d64309;
 }

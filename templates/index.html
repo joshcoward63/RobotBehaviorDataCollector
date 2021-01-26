@@ -24,9 +24,9 @@
     
     <div class = "describe" id="describe">
         <p>Please describe what you saw...</p>
-        <textarea placeholder="Description" style="height:200px; width: 500px; z-index:0" type="text"></textarea>
+        <textarea placeholder="Description" id="description" name ="description" style="height:200px; width: 500px; z-index:0" type="text"></textarea>
         <p>Please rate the following attributes on a scale of 5...</p>
-        <form style="width:50%;" action="">
+        <form style="width:50%;" action="test.py" method="GET">
             <ul class='likert'>
               <li style = "display:inline-block;"> 
                 <input type="radio" name="likert2" value="1">
@@ -179,28 +179,9 @@
               </li>
             </ul>
           </form>
-        <button  id = "submitButton" >Submit</button>
+        <button type="submit"  id = "submitButton" >Submit</button>
     </div>
-    <!-- <figure>
-        <div></div><div></div>
-        <div></div><div></div>
-        <div></div><div></div>
-        <div></div><div></div>
-    </figure> -->
-    <!-- <script>
-        function myFunction(){
-        setTimeout(()=>{
-        splash.classList.add('display-none');
-        }, 2000); 
-    }
-    </script> -->
-    <!-- <script>
-        function fadeOut2(){
-        setTimeout(()=>{
-        startBot.classList.add('display-none');
-        }, 2000); 
-    }
-    </script> -->
+
     <script>
         var time = new Date().getTime();
         $(document.body).bind("mousemove keypress", function(e) {
@@ -231,6 +212,35 @@
             });
         });
     </script>
+        <script>
+            $('#submitButton').on('click', function(e){
+                // if(document.getElementByName("likert2").checked && document.getElementByName("likert3").checked && document.getElementByName("likert4").checked && document.getElementByName("likert5").checked && document.getElementByName("likert6").checked && document.getElementByName("likert7").checked && document.getElementByName("likert8").checked && document.getElementByName("likert9").checked && document.getElementByName(description).val() != null){
+                    var checkRadio1 = document.querySelector('input[name="likert2"]:checked');
+                    var checkRadio2 = document.querySelector('input[name="likert3"]:checked'); 
+                    var checkRadio3 = document.querySelector('input[name="likert4"]:checked');
+                    var checkRadio4 = document.querySelector('input[name="likert5"]:checked'); 
+                    var checkRadio5 = document.querySelector('input[name="likert6"]:checked');
+                    var checkRadio6 = document.querySelector('input[name="likert7"]:checked'); 
+                    var checkRadio7 = document.querySelector('input[name="likert8"]:checked');
+                    var checkRadio8 = document.querySelector('input[name="likert9"]:checked'); 
+
+                if( $(checkRadio1 && checkRadio2 && checkRadio3 && checkRadio4 && checkRadio5 && checkRadio6 && checkRadio7 && checkRadio8 && "textarea").val()!= null){
+                    $.ajax({
+                        type:'POST',
+                        url:"{{url_for('enterDataInFile')}}",
+                        dataType: "text",
+                        data:{ description: $("textarea").val(), form: $('form').serialize()},                        
+                        success: function(response){
+                            console.log(response);
+                        }
+                    });
+                    console.log("sent data");
+                }
+                else{
+                    alert("Please enter in missing fields.");
+                }
+            });
+        </script>
     <script src = "./../static/index.js"></script> 
 </body>
 </html>
