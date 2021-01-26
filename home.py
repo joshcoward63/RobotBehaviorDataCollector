@@ -1,7 +1,7 @@
 from flask import Flask, render_template,request, redirect
 import webbrowser
 from threading import Timer
-import cozmo_random_behaviors
+# import cozmo_random_behaviors
 app = Flask(__name__)
 
 @app.route('/')
@@ -11,7 +11,8 @@ def home():
 @app.route('/startRandomBehavior', methods=['POST'])
 def startRandomBehavior(): 
     print("it ran")
-    cozmo_random_behaviors.start()
+    # cozmo_random_behaviors.start()
+    return "hello"
 
 def refreshTime():
     #Time is set to 0
