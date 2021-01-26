@@ -9,14 +9,6 @@ title{
     background-color: #bb3200;
 }
 
-/* #start{
-    background-color:green;
-    border-color: green;
-}
-#start:hover{
-    background-color: #bb3200;
-} */
-
 body{
     background-color: #0033a0;
     position: relative;
@@ -39,7 +31,7 @@ body{
     min-height: 100vh;
 }
 .splash.display-none{
-    position: absolute;
+    position: fixed;
     opacity: 0;
     top: 0;
     left: 0;
@@ -100,9 +92,9 @@ body{
     font-size: x-large;
     transition: all 0.5s;
 }
-.overlay {
+/* .overlay {
     z-index: 0;  
-}
+} */
 .describe{
     /* position: fixed; */
     top: 0;
@@ -122,14 +114,14 @@ body{
     font-size: x-large;
 }
 
-  form .likert {
+  /* form .likert {
     list-style:none;
     width:100%;
     margin:0;
     padding:0 0 35px;
     display:block;
     border-bottom:2px solid #efefef;
-  }
+  } */
   form .likert:last-of-type {border-bottom:0;}
   form .likert:before {
     content: '';
@@ -143,7 +135,7 @@ body{
   }
   form .likert li {
     display:inline-block;
-    width:19%;
+    width:18%;
     text-align:center;
     vertical-align: top;
   }
@@ -156,31 +148,12 @@ body{
     
   }
   form .likert li label {width:100%;}
-
-/* figure{margin:0;transform:translate(-50%,-50%) rotate(0deg) scale(1.4,1.4);position:absolute;left:50%;top:50%;border-radius:150px;box-sizing:border-box;animation:rotation 20s infinite linear;}
-
-figure div:after{content:"";width:20px;height:20px;border:1px solid #fff;box-sizing:border-box;position:absolute;left:20px;top:20px;animation:shuffle 2s infinite;}
-
-figure div:nth-child(1){transform:rotate(0deg)}
-figure div:nth-child(1):after{animation-delay:-0.5s;}
-figure div:nth-child(2){transform:rotate(45deg)}
-figure div:nth-child(2):after{animation-delay:-1s;}
-figure div:nth-child(3){transform:rotate(90deg)}
-figure div:nth-child(3):after{animation-delay:-1.5s;}
-figure div:nth-child(4){transform:rotate(135deg)}
-figure div:nth-child(4):after{animation-delay:-2s;}
-figure div:nth-child(5){transform:rotate(180deg)}
-figure div:nth-child(5):after{animation-delay:-2.5s;}
-figure div:nth-child(6){transform:rotate(225deg)}
-figure div:nth-child(6):after{animation-delay:-3s;}
-figure div:nth-child(7){transform:rotate(270deg)}
-figure div:nth-child(7):after{animation-delay:-3.5s;}
-figure div:nth-child(8){transform:rotate(315deg)}
-figure div:nth-child(8):after{animation-delay:-4;}
-
-@keyframes rotation{
-  100%{transform:translate(-50%,-50%) rotate(-360deg) scale(1.4,1.4);}
+  
+#submitButton{
+    z-index: 10000;
+    background-color: #d64309;
+    border-color: #d64309;
 }
-@keyframes shuffle{
-  50%{transform:scale(0.4,0.4) rotate(-90deg);border-radius:50%;}
-} */
+#submitButton:hover{
+    background-color: #bb3200;
+}
