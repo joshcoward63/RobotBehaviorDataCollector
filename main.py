@@ -1,8 +1,7 @@
 from flask import Flask, render_template,request, redirect, request
 import webbrowser
 from threading import Timer
-# import cozmo_random_behaviors
-import randomBehavior
+import cozmo_random_behaviors
 import json
 import os
 import csv
@@ -15,8 +14,7 @@ def home():
 
 @app.route('/startRandomBehavior', methods=['POST'])
 def startRandomBehavior(): 
-    # cozmo_random_behaviors.start()
-    randomBehavior.start()
+    cozmo_random_behaviors.start()
     return "success"
 
 def open_browser():
