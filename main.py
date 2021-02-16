@@ -2,14 +2,23 @@ from flask import Flask, render_template,request, redirect, request
 import webbrowser
 from threading import Timer
 from cozmo_random_behaviors import CozmoBehavior
+from misty_random_behaviors import MistyBehavior
 import json
 import os
 import csv
 import time
 
+
 app = Flask(__name__)
 
-cozmo_behavior = CozmoBehavior()
+platform = 'misty'
+
+if platform == 'misty':
+    robot_behavior = MistyBehavior(ip='10.31.66.128')
+
+if platform == 'cozmo':
+    robot_behavior = CozmoBehavior()
+
 current_timestamp = None
 
 @app.route('/')
@@ -20,8 +29,8 @@ def home():
 def startRandomBehavior(): 
     global current_timestamp
     current_timestamp = time.time()
-    cozmo_behavior.set_timestamp(current_timestamp)
-    cozmo_behavior.start()
+    robot_behavior.set_timestamp(current_timestamp)
+    robot_behavior.start()
     return "success"
 
 def open_browser():
@@ -48,12 +57,12 @@ def enterDataInFile():
     boredom_surprise = dataAsDict["likert8"]
     disgust_desire = dataAsDict["likert9"]
     
-    if os.path.isfile("responses.csv"):
-         with open("data.csv", 'a') as file:
+    if os.path.isfile("responses_{}.csv".format(platform)):
+         with open("responses_{}.csv".format(platform), 'a') as file:
             writer = csv.writer(file)
             writer.writerow([current_timestamp, description, interest_alarm, confusion_understanding, frusteration_relief, sorrow_joy, anger_gratitude, fear_hope, boredom_surprise, disgust_desire])
     else:
-        with open("responses.csv", 'w') as file:
+        with open("responses_{}.csv".format(platform), 'w') as file:
             writer = csv.writer(file)
             writer.writerow(["Timestamp, Description", "Interst/Alarm", "Confusion/Understanding", "Frusteration/Relief","Sorrow/Joy", "Anger/Gratitude","Fear/Hope", "Boredom/Surprise","Disgust/Desire"])
             writer.writerow([current_timestamp, description, interest_alarm, confusion_understanding, frusteration_relief, sorrow_joy, anger_gratitude, fear_hope, boredom_surprise, disgust_desire])    
