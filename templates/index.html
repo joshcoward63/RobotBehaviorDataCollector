@@ -15,6 +15,12 @@
         <button class = "button" id = "start">Start</button>   
     </div>
 
+    <div class = "consent" id = "consent" style="overflow:hidden;">
+      <embed id = "pdf" src ="../static/robot-behavior-informed-consent.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&scrollbar=0" type="application/pdf" width= "800px" height = "1000px"/>
+      <!-- <iframe  id = "pdf" src="../static/robot-behavior-informed-consent.pdf" width="800px" height="1000px"></iframe> -->
+      <button class = "button" id = "proceed">Proceed</button>
+    </div>
+
     <div class = "startBot" id = "startBot">
         <p class = "fade-in">When you press the button below, the robot is going to do something for a few seconds.<br>
             We are going to ask you to describe what you saw and ask what emotion you thought the robot was showing.
@@ -193,7 +199,7 @@
     </div>
 
     <div class = "end">
-      <h1>Thank you for your participation!!</h1>
+      <embed src = "../static/robot-behavior-debrief.pdf" width="800px" height= "700px">
     </div>
 
     <script>
@@ -218,17 +224,26 @@
       }, 2000); 
       });
    </script>
+   <script>
+    $('#proceed').on("click",function(){
+      setTimeout(()=>{
+       consent.classList.add('display-none');
+     }, 2000); 
+     });
+  </script>
+
     <script>
         $('#startBotButton').on('click', function(e){
+           setTimeout(()=>{
+            startBot.classList.add('display-none');
+            }, 2000); 
             $.ajax({
                 type:'POST',
                 url:"{{url_for('startRandomBehavior')}}",
                 dataType: "text",
                 success: function(response){
                     console.log(response);
-                    setTimeout(()=>{
-                    startBot.classList.add('display-none');
-                    }, 2000); 
+
                 }
             });
         });
@@ -284,7 +299,7 @@
                         }, 2000); 
                         setTimeout(() =>{
                           window.location.reload(1);
-                        }, 7000);
+                        }, 8000);
                   }
               });
             }
@@ -297,7 +312,7 @@
             }, 2000);
             setTimeout(() =>{
               window.location.reload(1);
-            }, 7000);            
+            }, 8000);            
           })
         </script>
 </body>
