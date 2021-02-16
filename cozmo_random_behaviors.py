@@ -6,13 +6,16 @@ sys.path.append(os.environ['COZMO'])
 import cozmo
 import random
 import time
+from PIL import Image
+
 
 from cozmo.util import degrees, distance_mm, speed_mmps
 
 class CozmoBehavior():
 
-    def __init__(self):
+    def __init__(self, face_img_path='resources/cozmo_faces/'):
         self.ts = None
+        self.faces = [face_img_path+f for f in os.listdir(face_img_path) if os.path.isfile(os.path.join(face_img_path, f))]
 
     def set_timestamp(self, ts):
         self.ts = ts
@@ -27,7 +30,6 @@ class CozmoBehavior():
 
             ar = random.randint(0,4)
             t = random.randint(1,3)
-            # face = 
             he = random.randint(0,4)
             lwhe = random.randint(0,4)
             rwhe = random.randint(0,4)
@@ -48,6 +50,14 @@ class CozmoBehavior():
                 return random.choice([True, False])
 
             actions = []
+
+            if bool_choice():
+                face = random.choice(self.faces)
+                f = Image.open(face).resize(cozmo.oled_face.dimensions(), Image.NEAREST)
+                f = cozmo.oled_face.convert_image_to_screen_data(f, invert_image=False)
+                f_d = random.randint(2,5)
+                actions.append(('display_oled_face_image', face, '{} * 1000.0'.format(f_d), 'in_parallel=True'))
+                robot.display_oled_face_image(f, f_d * 1000.0, in_parallel=True)               
 
             if bool_choice():
                 actions.append(('say_text', utterance))
@@ -71,7 +81,7 @@ class CozmoBehavior():
                 robot.drive_wheels(l_wheel_speed=lw, r_wheel_speed=rw, 
                                 l_wheel_acc=None, r_wheel_acc=None, 
                                 duration=t)   
-            # robot.display_oled_face_image(face_image, duration_s * 1000.0, in_parallel=True)   
+
 
             # starting position
             time.sleep(1.0)
