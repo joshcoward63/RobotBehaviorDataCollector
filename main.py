@@ -1,12 +1,16 @@
 from flask import Flask, render_template,request, redirect, request
 import webbrowser
 from threading import Timer
-import cozmo_random_behaviors
+from cozmo_random_behaviors import CozmoBehavior
 import json
 import os
 import csv
+import time
 
 app = Flask(__name__)
+
+cozmo_behavior = CozmoBehavior()
+current_timestamp = None
 
 @app.route('/')
 def home():
@@ -14,7 +18,10 @@ def home():
 
 @app.route('/startRandomBehavior', methods=['POST'])
 def startRandomBehavior(): 
-    cozmo_random_behaviors.start()
+    global current_timestamp
+    current_timestamp = time.time()
+    cozmo_behavior.set_timestamp(current_timestamp)
+    cozmo_behavior.start()
     return "success"
 
 def open_browser():
@@ -22,6 +29,7 @@ def open_browser():
 
 @app.route('/enterDataInFile', methods=['POST'])
 def enterDataInFile():
+    global current_timestamp
     description = request.form["description"]
     data = request.form["form"]
     data = data.split("&")
@@ -40,15 +48,15 @@ def enterDataInFile():
     boredom_surprise = dataAsDict["likert8"]
     disgust_desire = dataAsDict["likert9"]
     
-    if os.path.isfile("data.csv"):
+    if os.path.isfile("responses.csv"):
          with open("data.csv", 'a') as file:
             writer = csv.writer(file)
-            writer.writerow([description, interest_alarm, confusion_understanding, frusteration_relief, sorrow_joy, anger_gratitude, fear_hope, boredom_surprise, disgust_desire])
+            writer.writerow([current_timestamp, description, interest_alarm, confusion_understanding, frusteration_relief, sorrow_joy, anger_gratitude, fear_hope, boredom_surprise, disgust_desire])
     else:
-        with open("data.csv", 'w') as file:
+        with open("responses.csv", 'w') as file:
             writer = csv.writer(file)
-            writer.writerow(["Description", "Interst/Alarm", "Confusion/Understanding", "Frusteration/Relief","Sorrow/Joy", "Anger/Gratitude","Fear/Hope", "Boredom/Surprise","Disgust/Desire"])
-            writer.writerow([description, interest_alarm, confusion_understanding, frusteration_relief, sorrow_joy, anger_gratitude, fear_hope, boredom_surprise, disgust_desire])    
+            writer.writerow(["Timestamp, Description", "Interst/Alarm", "Confusion/Understanding", "Frusteration/Relief","Sorrow/Joy", "Anger/Gratitude","Fear/Hope", "Boredom/Surprise","Disgust/Desire"])
+            writer.writerow([current_timestamp, description, interest_alarm, confusion_understanding, frusteration_relief, sorrow_joy, anger_gratitude, fear_hope, boredom_surprise, disgust_desire])    
     return "success"
 
 @app.route('/addEmail', methods=["POST"])
