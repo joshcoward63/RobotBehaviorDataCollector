@@ -3,6 +3,7 @@ import webbrowser
 from threading import Timer
 from cozmo_random_behaviors import CozmoBehavior
 from misty_random_behaviors import MistyBehavior
+from flaskwebgui import FlaskUI
 import json
 import os
 import csv
@@ -32,9 +33,6 @@ def startRandomBehavior():
     robot_behavior.set_timestamp(current_timestamp)
     robot_behavior.start()
     return "success"
-
-def open_browser():
-      webbrowser.open_new('http://127.0.0.1:8080/')
 
 @app.route('/enterDataInFile', methods=['POST'])
 def enterDataInFile():
@@ -79,6 +77,5 @@ def addEmail():
             file.write(userEmail)
     return "success"
 
-if __name__ == '__main__':
-    Timer(1, open_browser).start()
-    app.run(port=8080)
+ui = FlaskUI(app, fullscreen=True, maximized=True)
+ui.run()

@@ -9,9 +9,10 @@ title{
     background-color: #bb3200;
 }
 
-body{
+body::-webkit-scrollbar{
     background-color: #0033a0;
     position: relative;
+    display: none;
 }
 .splash{
     position: fixed;
@@ -93,7 +94,6 @@ body{
     font-size: x-large;
     transition: all 0.5s;
 }
-
 
 .startBot{
     position: fixed;
