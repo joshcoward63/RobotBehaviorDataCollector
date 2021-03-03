@@ -33,7 +33,7 @@ class CozmoBehavior():
             he = random.randint(0,4)
             lwhe = random.randint(0,4)
             rwhe = random.randint(0,4)
-            utterance = random.choice(['ehhhh?','ehhhh!','oh!','hmmm','oi','umm','aa?','aa!','uu?','uu!','rue!','rue?','eyy?','eyy!'])
+            utterance = random.choice(['ehhhh?','ehhhh!','oh!','hm','oi','umm','aa?','aa!','uu?','uu!','rue!','rue?','eyy?','eyy!'])
 
             h = -25.00 + ((he/4) * 69.50)
             a = (ar/4) * 1.0 
