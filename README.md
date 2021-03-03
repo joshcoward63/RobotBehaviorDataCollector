@@ -12,6 +12,6 @@ Files Incuded:
    - README.md - this file  
 
 Execution instructions:  
-    1. Make sure flask is installed, from terminal type ```pip install flask``` and press enter.  
+    1. Make sure flask and flaskwebgui is installed, from terminal type ```pip install flask flaskwebgui``` and press enter.  
     2. Navigate to this directory and run the following command to run the program ```python main.py```  
     
