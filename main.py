@@ -12,9 +12,11 @@ import time
 app = Flask(__name__)
 
 platform = 'misty'
+ip = '10.31.66.128' # white misty
+
 
 if platform == 'misty':
-    robot_behavior = MistyBehavior(ip='10.31.66.128')
+    robot_behavior = MistyBehavior(ip) 
 
 if platform == 'cozmo':
     robot_behavior = CozmoBehavior()
@@ -25,12 +27,18 @@ current_timestamp = None
 def home():
     return render_template("index.html")
 
+@app.route('/replayBehavior', methods=['POST'])
+def replayBehavior(): 
+    robot_behavior.play_behavior()
+    return "success"    
+
 @app.route('/startRandomBehavior', methods=['POST'])
 def startRandomBehavior(): 
     global current_timestamp
     current_timestamp = time.time()
     robot_behavior.set_timestamp(current_timestamp)
-    robot_behavior.start()
+    robot_behavior.generate_random_behavior()
+    robot_behavior.play_behavior()
     return "success"
 
 def open_browser():
