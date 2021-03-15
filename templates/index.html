@@ -29,6 +29,7 @@
     </div>  
     
     <div class = "describe" id="describe">
+      <button class = "button" id = "replayBotButton">Replay Robot Behavior</button><br>
         <h2>Please describe what you saw</h2>
         <textarea placeholder="Description" id="description" name ="description" style="height:200px; width: 500px; z-index:0" type="text"></textarea>
         <h2>Please rate the following attributes on a scale of 5</h2>
@@ -247,6 +248,21 @@
                 }
             });
         });
+
+        $('#replayBotButton').on('click', function(e){
+           setTimeout(()=>{
+            startBot.classList.add('display-none');
+            }, 2000); 
+            $.ajax({
+                type:'POST',
+                url:"{{url_for('replayBehavior')}}",
+                dataType: "text",
+                success: function(response){
+                    console.log(response);
+
+                }
+            });
+        });        
     </script>
         <script>
             $('#submitButton').on('click', function(e){
