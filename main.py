@@ -12,7 +12,7 @@ import time
 
 app = Flask(__name__)
 
-platform = 'misty'
+platform = 'cozmo'
 ip = '10.31.66.128' # white misty
 
 
